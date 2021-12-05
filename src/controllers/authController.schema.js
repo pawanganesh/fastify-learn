@@ -1,18 +1,33 @@
 const LoginRequestSchema = {
     type: "object",
-    required: ["username", "password"],
+    required: ["email", "password"],
     properties: {
-        "username": { type: "string" },
+        "email": { type: "string", format: "email" },
         "password": { type: "string" }
     },
 };
 
+const LoginResponseSchema = {
+    type: "object",
+    properties: {
+        "message": { type: "string", default: "Login successful" },
+        "token": { type: "string" },
+    }
+}
+
+const LoginSchema = {
+    body: LoginRequestSchema,
+    response: {
+        200: LoginResponseSchema
+    }
+}
+
 const RegisterRequestSchema = {
     type: "object",
-    required: [...LoginRequestSchema.required, "email"],
+    required: [...LoginRequestSchema.required, "username"],
     properties: {
         ...LoginRequestSchema.properties,
-        "email": { type: "string", format: "email" }
+        "username": { type: "string" }
     },
 };
 
@@ -31,4 +46,4 @@ const RegisterSchema = {
     },
 }
 
-module.exports = { LoginRequestSchema, RegisterSchema };
+module.exports = { LoginSchema, RegisterSchema };
