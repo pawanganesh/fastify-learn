@@ -46,4 +46,22 @@ const RegisterSchema = {
     },
 }
 
-module.exports = { LoginSchema, RegisterSchema };
+const UserVerificationSchema = {
+    body: {
+        type: "object",
+        required: ["token"],
+        properties: {
+            token: { type: 'string' }
+        }
+    },
+    response: {
+        200: {
+            type: "object",
+            properties: {
+                message: { type: 'string' }
+            }
+        }
+    }
+}
+
+module.exports = { LoginSchema, RegisterSchema, UserVerificationSchema };

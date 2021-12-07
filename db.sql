@@ -1,14 +1,13 @@
 CREATE DATABASE IF NOT EXISTS `fastifydb`;
 
-CREATE TABLE users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT NOT NULL,
-  password TEXT NOT NULL,
-  email TEXT NOT NULL
+-- create user table
+CREATE TABLE user (
+  user_id SERIAL PRIMARY KEY,
+  username VARCHAR (50) UNIQUE NOT NULL,
+  email VARCHAR (50) UNIQUE NOT NULL,
+  password VARCHAR (100) NOT NULL,
+  is_verified BOOLEAN DEFAULT false,
+  created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  updated_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  last_login TIMESTAMP
 );
-
-INSERT INTO users
-(username, email, password)
-VALUES
-($1, $2, $3)
-RETURNING username, email;

@@ -1,5 +1,5 @@
-const { userRegisterController, userLoginController } = require("../controllers/authController");
-const { RegisterSchema, LoginSchema } = require("../controllers/authController.schema");
+const { userRegisterController, userLoginController, UserVerificationController } = require("../controllers/authController");
+const { RegisterSchema, LoginSchema, UserVerificationSchema } = require("../controllers/authController.schema");
 
 
 const AuthRoute = async (fastify) => {
@@ -16,6 +16,13 @@ const AuthRoute = async (fastify) => {
         { schema: LoginSchema },
         userLoginController
     );
+
+    // POST /auth/verify/:token
+    fastify.post(
+        "/verify",
+        { schema: UserVerificationSchema },
+        UserVerificationController
+    )
 };
 
 module.exports = { AuthRoute };
