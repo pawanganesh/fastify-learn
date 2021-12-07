@@ -8,6 +8,7 @@ const { GenerateUserVerificationToken } = require("../helpers/token");
 async function userRegisterController(request, reply) {
     try {
         const userRequest = request.body;
+        // TODO: check if user already exists
         const hashedPassword = await hashPassword(userRequest.password);  // hash password
         const query = {
             text: `INSERT INTO users (username, email, password) \
