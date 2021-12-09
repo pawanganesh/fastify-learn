@@ -5,6 +5,7 @@ const server = app({
         level: "debug",
         prettyPrint: true,
     },
+    // ignoreTrailingSlash: true,
     // pluginTimeout: 20000,
     // ajv: { customOptions: {} },
 })

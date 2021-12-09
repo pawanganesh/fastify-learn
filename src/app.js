@@ -1,13 +1,17 @@
-const fastify = require('fastify')
+const fastify = require('fastify');
+const { Handler404 } = require('./helpers/replies');
 
-const dbconnector = require("./plugins/db")
+const dbconnector = require("./plugins/db.plugin");
 
 const { AuthRoute } = require("./routes/authRoute");
+const { UserRoute } = require('./routes/userRoute');
 
 function app(opts) {
     const server = fastify(opts);
 
     server.register(dbconnector);
+    server.setNotFoundHandler(Handler404);
+
     server.register(require("fastify-swagger"), {
         exposeRoute: true,
         routePrefix: "/docs",
@@ -21,6 +25,7 @@ function app(opts) {
         }
     });
     server.register(AuthRoute, { prefix: "/auth" });
+    server.register(UserRoute, { prefix: "/user" });
 
     return server;
 }

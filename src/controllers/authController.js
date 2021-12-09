@@ -52,6 +52,7 @@ async function userLoginController(request, reply) {
         }
         const isPasswordValid = await comparePassword(loginRequest.password, rows[0].password);  // comprare password
         if (isPasswordValid) {
+            // TODO: update last_login to current date and time
             const token = jwt.sign({
                 email: rows[0].email,
                 user_id: rows[0].user_id
@@ -109,6 +110,8 @@ async function UserVerificationController(request, reply) {
     //     "message": "I am of no use!"
     // }
 }
+
+
 
 
 module.exports = { userRegisterController, userLoginController, UserVerificationController };
