@@ -11,3 +11,6 @@ CREATE TABLE user (
   updated_at TIMESTAMP DEFAULT NOW() NOT NULL,
   last_login TIMESTAMP
 );
+
+ALTER TABLE users
+ALTER COLUMN profile_picture TYPE VARCHAR (65);

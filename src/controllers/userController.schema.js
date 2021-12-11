@@ -5,6 +5,7 @@ const userObjectSchema = {
         user_id: { type: "number" },
         username: { type: "string" },
         email: { type: "string", format: "email" },
+        profile_picture: { type: "string", nullable: true },
         is_verified: { type: "boolean" },
         created_at: { type: "string", format: "date-time" },
         updated_at: { type: "string", format: "date-time" },
@@ -19,4 +20,18 @@ const getUserSchema = {
     },
 };
 
-module.exports = { getUserSchema }
+const updateUserSchema = {
+    body: {
+        type: "object",
+        properties: {
+            username: { type: "string" },
+            email: { type: "string", format: "email" },
+        },
+        additionalProperties: false,
+    },
+    response: {
+        200: userObjectSchema
+    },
+};
+
+module.exports = { getUserSchema, updateUserSchema }

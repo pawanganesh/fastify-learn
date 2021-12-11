@@ -12,7 +12,7 @@ const invalidToken = ({ reply }) => {
 }
 
 const noAuthTokenProvided = ({ reply }) => {
-    return ReplyFactory({ reply }, false, 400, "Please provide authorization token")
+    return ReplyFactory({ reply }, false, 400, "Authentication credentials were not provided")
 }
 
 const routeNotSetYet = ({ reply }) => {
