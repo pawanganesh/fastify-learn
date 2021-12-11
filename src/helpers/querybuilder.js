@@ -1,6 +1,6 @@
 /**
 * tableName: 'users'
-* data: {username: 'handsomektomah', 'email': 'handsomektomah@gmail.com', ...}
+* data: {username: 'handsomelonda', 'email': 'handsomelonda@gmail.com', ...}
 * conditions: {id: 1, ...}
  */
 

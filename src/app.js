@@ -7,7 +7,7 @@ const fastifyStatic = require("fastify-static");
 const dbconnector = require("./plugins/db.plugin");
 const { Handler404 } = require('./helpers/replies');
 const { AuthRoute } = require("./routes/authRoute");
-const { UserProtectedRoute } = require('./routes/userRoute');
+const { UserRoute, UserProtectedRoute } = require('./routes/userRoute');
 
 function app(opts) {
     const server = Fastify(opts);
@@ -31,7 +31,9 @@ function app(opts) {
         prefix: "/images/",
     })
     server.register(AuthRoute, { prefix: "/auth" });
+
     server.register(UserProtectedRoute, { prefix: "/user" });
+    server.register(UserRoute, { prefix: "/user" });
 
     return server;
 }

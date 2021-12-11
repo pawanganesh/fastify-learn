@@ -3,10 +3,20 @@ const {
     getUserProfile,
     UpdateProfilePicture,
     UpdateUserProfile,
-    UpdateUserPassword
+    UpdateUserPassword,
+    getForgotPasswordToken,
+    updateForgotPassword,
 } = require("../controllers/userController");
-const { getUserSchema, updateUserSchema } = require("../controllers/userController.schema");
+const {
+    getUserSchema,
+    updateUserSchema,
+    changePasswordSchema,
+    forgotPasswordRequestSchema,
+    forgotPasswordSchema,
+} = require("../controllers/userController.schema");
 const { photoUpload } = require("../helpers/storage");
+const { default: fastify } = require("fastify");
+
 
 const UserProtectedRoute = async (fastify) => {
     // Initial check for logged in users, drop request without serialization
@@ -21,13 +31,16 @@ const UserProtectedRoute = async (fastify) => {
     // Update profile details
     fastify.patch("/", { schema: updateUserSchema }, UpdateUserProfile)
 
-    // TODO: Change password
-    fastify.patch("/change-password", UpdateUserPassword)
+    // Change password
+    fastify.patch("/change-password", { schema: changePasswordSchema }, UpdateUserPassword)
+};
 
-    // TODO: Forgot password
-    fastify.get("/forgot-password", UpdateUserPassword)
-    fastify.patch("/forgot-password", UpdateUserPassword)
+const UserRoute = async (fastify) => {
+    // Send password reset link
+    fastify.post("/forgot-password", { schema: forgotPasswordRequestSchema }, getForgotPasswordToken)
+    // TODO: Password reset
+    fastify.patch("/forgot-password/", { schema: forgotPasswordSchema }, updateForgotPassword)
+    //127.0.0.1:3000/user/forgot-password/?verificationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhd2FubGFsZ2FuZXNoQGdtYWlsLmNvbSIsInVzZXJfaWQiOjksImlhdCI6MTYzOTIzNTU2NiwiZXhwIjoxNjM5MzIxOTY2fQ.nbOHmN3tFK6hrwP2HbazqC0gl28SbLDBTzL2TBA13LU
+};
 
-}
-
-module.exports = { UserProtectedRoute }
+module.exports = { UserRoute, UserProtectedRoute }
